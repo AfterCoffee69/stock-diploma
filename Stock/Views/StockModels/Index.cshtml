@@ -1,0 +1,339 @@
+﻿@model IEnumerable<Stock.Models.StockModel>
+
+@{
+    ViewData["Title"] = "Stocks";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        h1 {
+            color: #2e7d32;
+            margin-bottom: 20px;
+            font-weight: 600;
+            border-bottom: 2px solid #a5d6a7;
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            color: #2e7d32;
+            margin: 20px 0 15px;
+            font-weight: 500;
+            font-size: 1.5em;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9em;
+            min-width: 400px;
+            border-radius: 5px 5px 0 0;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            background-color: white;
+        }
+
+            .table thead tr {
+                background-color: #2e7d32;
+                color: #ffffff;
+                text-align: left;
+                font-weight: bold;
+            }
+
+            .table th,
+            .table td {
+                padding: 12px 15px;
+            }
+
+            .table tbody tr {
+                border-bottom: 1px solid #dddddd;
+                transition: all 0.2s;
+            }
+
+                .table tbody tr:nth-of-type(even) {
+                    background-color: #f3f3f3;
+                }
+
+                .table tbody tr:last-of-type {
+                    border-bottom: 2px solid #2e7d32;
+                }
+
+                .table tbody tr:hover {
+                    background-color: #e8f5e9;
+                    transform: scale(1.005);
+                }
+
+        .btn {
+            display: inline-block;
+            padding: 8px 16px;
+            margin: 0 5px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .btn-primary {
+            background-color: #2e7d32;
+            color: white;
+            border-color: #2e7d32;
+        }
+
+            .btn-primary:hover {
+                background-color: #1b5e20;
+                border-color: #1b5e20;
+                transform: translateY(-2px);
+                box-shadow: 0 2px 8px rgba(46, 125, 50, 0.3);
+            }
+
+        .btn-outline-primary {
+            color: #2e7d32;
+            border-color: #2e7d32;
+            background-color: transparent;
+        }
+
+            .btn-outline-primary:hover {
+                background-color: #2e7d32;
+                color: white;
+                transform: translateY(-2px);
+                box-shadow: 0 2px 8px rgba(46, 125, 50, 0.3);
+            }
+
+        .btn-outline-info {
+            color: #0288d1;
+            border-color: #0288d1;
+            background-color: transparent;
+        }
+
+            .btn-outline-info:hover {
+                background-color: #0288d1;
+                color: white;
+                transform: translateY(-2px);
+                box-shadow: 0 2px 8px rgba(2, 136, 209, 0.3);
+            }
+
+        .btn-outline-danger {
+            color: #d32f2f;
+            border-color: #d32f2f;
+            background-color: transparent;
+        }
+
+            .btn-outline-danger:hover {
+                background-color: #d32f2f;
+                color: white;
+                transform: translateY(-2px);
+                box-shadow: 0 2px 8px rgba(211, 47, 47, 0.3);
+            }
+
+        .action-buttons {
+            white-space: nowrap;
+            text-align: right;
+        }
+
+        .create-btn {
+            margin-bottom: 20px;
+        }
+
+        .form-control {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.9em;
+            width: 300px;
+        }
+
+        .d-flex {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .ms-2 {
+            margin-left: 8px;
+        }
+
+        .mt-2 {
+            margin-top: 8px;
+        }
+
+        .filter-section {
+            background-color: #f0f7f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .filter-title {
+            color: #2e7d32;
+            margin-bottom: 15px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+        }
+
+            .filter-title i {
+                margin-right: 10px;
+            }
+
+        @@keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .table {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+            /* Иконки в заголовках */
+            .table th i {
+                margin-right: 8px;
+            }
+
+        /* Иконки в кнопках */
+        .btn i {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="filter-section">
+        <h3 class="filter-title"><i class="fas fa-filter"></i> Фильтры продуктов</h3>
+
+        <form method="get" asp-action="GetProductsByPrice" class="d-flex">
+            <input type="number" name="price" placeholder="Все продукты ценой больше:" class="form-control" required>
+            <button type="submit" class="btn btn-outline-danger ms-2">
+                <i class="fas fa-search-dollar"></i> Filter
+            </button>
+        </form>
+
+        <form method="get" asp-action="GetProductsByStockName" class="d-flex mt-2">
+            <input type="text" name="stockName" placeholder="Все единицы на складе № _" class="form-control" required>
+            <button type="submit" class="btn btn-outline-danger ms-2">
+                <i class="fas fa-warehouse"></i> Filter
+            </button>
+        </form>
+
+        <form method="get" asp-action="GetProductsByName" class="d-flex mt-2">
+            <input type="text" name="name" placeholder="Поиск единиц по имени" class="form-control" required>
+            <button type="submit" class="btn btn-outline-danger ms-2">
+                <i class="fas fa-search"></i> Search
+            </button>
+        </form>
+
+        <form method="get" asp-action="GetProductsByCategory" class="d-flex mt-2">
+            <select name="categoryId" class="form-control" required>
+                <option value="">Выберите категорию</option>
+                @foreach (var category in ViewBag.Categories)
+                {
+                    <option value="@category.Id">@category.Name</option>
+                }
+            </select>
+            <button type="submit" class="btn btn-outline-danger ms-2">
+                <i class="fas fa-tags"></i> Filter
+            </button>
+        </form>
+
+        <form method="get" asp-action="GetProductsBySupplier" class="d-flex mt-2">
+            <select name="supplierId" class="form-control" required>
+                <option value="">Выберите поставщика</option>
+                @foreach (var suppliers in ViewBag.Suppliers)
+                {
+                    <option value="@suppliers.Id">@suppliers.Name</option>
+                }
+            </select>
+            <button type="submit" class="btn btn-outline-danger ms-2">
+                <i class="fas fa-truck"></i> Filter
+            </button>
+        </form>
+    </div>
+
+    <div class="container">
+        <h1><i class="fas fa-warehouse"></i> Stocks</h1>
+
+        <p class="create-btn">
+            <a asp-action="Create" class="btn btn-outline-primary">
+                <i class="fas fa-plus-circle"></i> Create New
+            </a>
+        </p>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th><i class="fas fa-signature"></i> Название</th>
+                    <th><i class="fas fa-map-marker-alt"></i> Адрес</th>
+                    <th class="action-buttons"><i class="fas fa-cog"></i> Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Addres)</td>
+                        <td class="action-buttons">
+                            <a asp-action="Edit" class="btn btn-outline-primary" asp-route-id="@item.Id">
+                                <i class="fas fa-edit"></i> Edit
+                            </a>
+                            <a asp-action="Details" class="btn btn-outline-info" asp-route-id="@item.Id">
+                                <i class="fas fa-info-circle"></i> Details
+                            </a>
+                            <a asp-action="Delete" class="btn btn-outline-danger" asp-route-id="@item.Id">
+                                <i class="fas fa-trash-alt"></i> Delete
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        @if (ViewBag.Products != null)
+        {
+            <h2 class="mt-2"><i class="fas fa-list"></i> Filtered Products</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th><i class="fas fa-tag"></i> Name</th>
+                        <th><i class="fas fa-dollar-sign"></i> Price</th>
+                        <th><i class="fas fa-warehouse"></i> Stock Name</th>
+                        <th><i class="fas fa-truck"></i> Supplier</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var product in ViewBag.Products)
+                    {
+                        <tr>
+                            <td>@product.Name</td>
+                            <td>@product.Price</td>
+                            <td>@product.Stock.Name</td>
+                            <td>@product.Supplier.Name</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</body>
+</html>

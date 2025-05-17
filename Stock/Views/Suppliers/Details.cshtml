@@ -1,0 +1,65 @@
+﻿@model Stock.Models.Supplier
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<h4>Products</h4>
+@if (ViewBag.Products != null)
+{
+    <table class="table mt-2">
+        <thead>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Price
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var orders in ViewBag.Products)
+            {
+                <tr>
+                    <th>
+                        @orders.Name
+                    </th>
+                    <th>
+                        @orders.Price
+                    </th>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h6>Нет добавленных товаров</h6>
+}
+
+
+<div>
+    <h4>Supplier</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" class="btn btn-outline-danger mt-2" asp-route-id="@Model?.Id">Edit</a>
+    <a asp-action="Index" class="btn btn-outline-secondary mt-2">Back to List</a>
+</div>

@@ -1,0 +1,342 @@
+﻿@model IEnumerable<Stock.Models.Employer>
+
+@{
+    ViewData["Title"] = "Employees";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        h1 {
+            color: #2e7d32;
+            margin-bottom: 20px;
+            font-weight: 600;
+            border-bottom: 2px solid #a5d6a7;
+            padding-bottom: 10px;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9em;
+            min-width: 400px;
+            border-radius: 5px 5px 0 0;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            background-color: white;
+        }
+
+            .table thead tr {
+                background-color: #2e7d32;
+                color: #ffffff;
+                text-align: left;
+                font-weight: bold;
+            }
+
+            .table th,
+            .table td {
+                padding: 12px 15px;
+            }
+
+            .table tbody tr {
+                border-bottom: 1px solid #dddddd;
+                transition: all 0.2s;
+            }
+
+                .table tbody tr:nth-of-type(even) {
+                    background-color: #f3f3f3;
+                }
+
+                .table tbody tr:last-of-type {
+                    border-bottom: 2px solid #2e7d32;
+                }
+
+                .table tbody tr:hover {
+                    background-color: #e8f5e9;
+                    transform: scale(1.005);
+                }
+
+        .btn {
+            display: inline-block;
+            padding: 8px 16px;
+            margin: 0 5px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .btn-primary {
+            background-color: #2e7d32;
+            color: white;
+            border-color: #2e7d32;
+        }
+
+            .btn-primary:hover {
+                background-color: #1b5e20;
+                border-color: #1b5e20;
+                transform: translateY(-2px);
+                box-shadow: 0 2px 8px rgba(46, 125, 50, 0.3);
+            }
+
+        .btn-outline-primary {
+            color: #2e7d32;
+            border-color: #2e7d32;
+            background-color: transparent;
+        }
+
+            .btn-outline-primary:hover {
+                background-color: #2e7d32;
+                color: white;
+                transform: translateY(-2px);
+                box-shadow: 0 2px 8px rgba(46, 125, 50, 0.3);
+            }
+
+        .btn-outline-info {
+            color: #0288d1;
+            border-color: #0288d1;
+            background-color: transparent;
+        }
+
+            .btn-outline-info:hover {
+                background-color: #0288d1;
+                color: white;
+                transform: translateY(-2px);
+                box-shadow: 0 2px 8px rgba(2, 136, 209, 0.3);
+            }
+
+        .btn-outline-danger {
+            color: #d32f2f;
+            border-color: #d32f2f;
+            background-color: transparent;
+        }
+
+            .btn-outline-danger:hover {
+                background-color: #d32f2f;
+                color: white;
+                transform: translateY(-2px);
+                box-shadow: 0 2px 8px rgba(211, 47, 47, 0.3);
+            }
+
+        .btn-secondary {
+            background-color: #757575;
+            color: white;
+            border-color: #757575;
+        }
+
+            .btn-secondary:hover {
+                background-color: #616161;
+                border-color: #616161;
+            }
+
+        .action-buttons {
+            white-space: nowrap;
+            text-align: right;
+        }
+
+        .create-btn {
+            margin-bottom: 20px;
+        }
+
+        .form-control {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.9em;
+            width: 250px;
+        }
+
+        .d-flex {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .ms-2 {
+            margin-left: 8px;
+        }
+
+        .mt-2 {
+            margin-top: 8px;
+        }
+
+        .modal-content {
+            border-radius: 8px;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .modal-header {
+            background-color: #2e7d32;
+            color: white;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .btn-close {
+            filter: invert(1);
+        }
+
+        @@keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .table {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+            /* Иконки в заголовках */
+            .table th i {
+                margin-right: 8px;
+            }
+
+        /* Иконки в кнопках */
+        .btn i {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fas fa-user-tie"></i> Employees</h1>
+
+        <p class="create-btn">
+            <a asp-action="Create" class="btn btn-outline-primary">
+                <i class="fas fa-plus-circle"></i> Create New
+            </a>
+        </p>
+
+        <div class="search-forms">
+            <form asp-action="GetEmployeesByName" method="get" class="d-flex">
+                <input type="text" name="name" class="form-control" placeholder="Поиск работника по имени">
+                <button type="submit" class="btn btn-primary ms-2">
+                    <i class="fas fa-search"></i> Search
+                </button>
+            </form>
+
+            <form asp-action="GetEmployeesBySurename" method="get" class="d-flex mt-2">
+                <input type="text" name="surename" class="form-control" placeholder="Поиск работника по фамилии">
+                <button type="submit" class="btn btn-primary ms-2">
+                    <i class="fas fa-search"></i> Search
+                </button>
+            </form>
+
+            <form asp-action="GetEmployeesByNumber" method="get" class="d-flex mt-2">
+                <input type="number" name="eNumber" class="form-control" placeholder="Поиск работника по номеру">
+                <button type="submit" class="btn btn-primary ms-2">
+                    <i class="fas fa-search"></i> Search
+                </button>
+            </form>
+
+            <form asp-action="GetEmployeesByStockId" method="get" class="d-flex mt-2">
+                <input type="number" name="stockId" class="form-control" placeholder="Все работники склада (номер)">
+                <button type="submit" class="btn btn-primary ms-2">
+                    <i class="fas fa-warehouse"></i> Search
+                </button>
+            </form>
+        </div>
+
+        @if (ViewBag.Employers != null)
+        {
+            <table class="table mt-2">
+                <thead>
+                    <tr>
+                        <th><i class="fas fa-user"></i> Имя</th>
+                        <th><i class="fas fa-user"></i> Фамилия</th>
+                        <th><i class="fas fa-id-badge"></i> Номер</th>
+                        <th><i class="far fa-calendar-alt"></i> Дата найма</th>
+                        <th><i class="fas fa-warehouse"></i> Склад</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var employeer in ViewBag.Employers)
+                    {
+                        <tr>
+                            <td>@employeer.Name</td>
+                            <td>@employeer.Surename</td>
+                            <td>@employeer.Number</td>
+                            <td>@employeer.DateConnection</td>
+                            <td>@employeer.Stock.Name</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th><i class="fas fa-user"></i> Имя</th>
+                    <th><i class="fas fa-user"></i> Фамилия</th>
+                    <th><i class="fas fa-id-badge"></i> Номер</th>
+                    <th><i class="far fa-calendar-alt"></i> Дата найма</th>
+                    <th><i class="fas fa-warehouse"></i> Склад</th>
+                    <th class="action-buttons"><i class="fas fa-cog"></i> Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Surename)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Number)</td>
+                        <td>@Html.DisplayFor(modelItem => item.DateConnection)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Stock.Name)</td>
+                        <td class="action-buttons">
+                            <a asp-action="Edit" class="btn btn-outline-primary" asp-route-id="@item.Id">
+                                <i class="fas fa-edit"></i> Edit
+                            </a>
+                            <a asp-action="Details" class="btn btn-outline-info" asp-route-id="@item.Id">
+                                <i class="fas fa-info-circle"></i> Details
+                            </a>
+                            <a asp-action="Delete" class="btn btn-outline-danger" asp-route-id="@item.Id">
+                                <i class="fas fa-trash-alt"></i> Delete
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-user-tie"></i> Employer Details</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            <i class="fas fa-times"></i> Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

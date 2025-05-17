@@ -1,0 +1,77 @@
+﻿@model Stock.Models.Customer
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<h4>Orders</h4>
+@if (ViewBag.Orders != null)
+{
+    <table class="table mt-2">
+        <thead>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Price
+                </th>
+                <th>
+                    Amount
+                </th>
+                <th>
+                   Product 
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var orders in ViewBag.Orders)
+            {
+                <tr>
+                    <th>
+                        @orders.Name
+                    </th>
+                    <th>
+                        @Math.Round(orders.Price)
+                    </th>
+                    <th>
+                        @Math.Round(orders.Amount)
+                    </th>
+                    <th>
+                        @orders.Product.Name
+                    </th>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h4>Нет заказов</h4>
+}
+
+
+<div>
+    <h4>Customer</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" class="btn btn-outline-warning mt-2" asp-route-id="@Model?.Id">Edit</a>
+    <a asp-action="Index" class="btn btn-outline-secondary mt-2">Back to List</a>
+</div>

@@ -1,0 +1,270 @@
+﻿@model IEnumerable<Stock.Models.Delivery>
+
+@{
+    ViewData["Title"] = "Deliveries";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        h1 {
+            color: #2e7d32;
+            margin-bottom: 20px;
+            font-weight: 600;
+            border-bottom: 2px solid #a5d6a7;
+            padding-bottom: 10px;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9em;
+            min-width: 400px;
+            border-radius: 5px 5px 0 0;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            background-color: white;
+        }
+
+            .table thead tr {
+                background-color: #2e7d32;
+                color: #ffffff;
+                text-align: left;
+                font-weight: bold;
+            }
+
+            .table th,
+            .table td {
+                padding: 12px 15px;
+            }
+
+            .table tbody tr {
+                border-bottom: 1px solid #dddddd;
+                transition: all 0.2s;
+            }
+
+                .table tbody tr:nth-of-type(even) {
+                    background-color: #f3f3f3;
+                }
+
+                .table tbody tr:last-of-type {
+                    border-bottom: 2px solid #2e7d32;
+                }
+
+                .table tbody tr:hover {
+                    background-color: #e8f5e9;
+                    transform: scale(1.005);
+                }
+
+        .btn {
+            display: inline-block;
+            padding: 8px 16px;
+            margin: 0 5px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .btn-outline-primary {
+            color: #2e7d32;
+            border-color: #2e7d32;
+            background-color: transparent;
+        }
+
+            .btn-outline-primary:hover {
+                background-color: #2e7d32;
+                color: white;
+                transform: translateY(-2px);
+                box-shadow: 0 2px 8px rgba(46, 125, 50, 0.3);
+            }
+
+        .btn-outline-info {
+            color: #0288d1;
+            border-color: #0288d1;
+            background-color: transparent;
+        }
+
+            .btn-outline-info:hover {
+                background-color: #0288d1;
+                color: white;
+                transform: translateY(-2px);
+                box-shadow: 0 2px 8px rgba(2, 136, 209, 0.3);
+            }
+
+        .btn-outline-danger {
+            color: #d32f2f;
+            border-color: #d32f2f;
+            background-color: transparent;
+        }
+
+            .btn-outline-danger:hover {
+                background-color: #d32f2f;
+                color: white;
+                transform: translateY(-2px);
+                box-shadow: 0 2px 8px rgba(211, 47, 47, 0.3);
+            }
+
+        .btn-primary {
+            background-color: #2e7d32;
+            color: white;
+            border-color: #2e7d32;
+        }
+
+            .btn-primary:hover {
+                background-color: #1b5e20;
+                border-color: #1b5e20;
+                transform: translateY(-2px);
+                box-shadow: 0 2px 8px rgba(46, 125, 50, 0.3);
+            }
+
+        .action-buttons {
+            white-space: nowrap;
+            text-align: right;
+        }
+
+        .create-btn {
+            margin-bottom: 20px;
+        }
+
+        .form-control {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.9em;
+            width: 200px;
+        }
+
+        .d-flex {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .ms-2 {
+            margin-left: 8px;
+        }
+
+        .mt-2 {
+            margin-top: 16px;
+        }
+
+        @@keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .table {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+            /* Иконки в заголовках */
+            .table th i {
+                margin-right: 8px;
+            }
+
+        /* Иконки в кнопках */
+        .btn i {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fas fa-truck"></i> Deliveries</h1>
+
+        <p class="create-btn">
+            <a asp-action="Create" class="btn btn-outline-primary">
+                <i class="fas fa-plus-circle"></i> Create New
+            </a>
+        </p>
+
+        <form asp-action="GetOrderByStatus" method="get" class="d-flex">
+            <select name="statusName" class="form-control" required>
+                <option value="">Выберите статус</option>
+                <option value="Завершён">Завершен</option>
+                <option value="В процессе">В процессе</option>
+            </select>
+            <button type="submit" class="btn btn-primary ms-2">
+                <i class="fas fa-filter"></i> Filter
+            </button>
+        </form>
+
+        @if (ViewBag.Delivereis != null)
+        {
+            <table class="table mt-2">
+                <thead>
+                    <tr>
+                        <th><i class="far fa-calendar-alt"></i> Order Date</th>
+                        <th><i class="fas fa-calendar-check"></i> Delivery Date</th>
+                        <th><i class="fas fa-info-circle"></i> Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var orders in ViewBag.Delivereis)
+                    {
+                        <tr>
+                            <td>@orders.OrderDate</td>
+                            <td>@orders.DeliveryDate</td>
+                            <td>@orders.Status</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th><i class="far fa-calendar-alt"></i> Дата заказа</th>
+                    <th><i class="fas fa-calendar-check"></i> Дата отгрузки</th>
+                    <th><i class="fas fa-info-circle"></i> Статус</th>
+                    <th class="action-buttons"><i class="fas fa-cog"></i> Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.OrderDate)</td>
+                        <td>@Html.DisplayFor(modelItem => item.DeliveryDate)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Status)</td>
+                        <td class="action-buttons">
+                            <a asp-action="Edit" class="btn btn-outline-primary" asp-route-id="@item.Id">
+                                <i class="fas fa-edit"></i> Edit
+                            </a>
+                            <a asp-action="Details" class="btn btn-outline-info" asp-route-id="@item.Id">
+                                <i class="fas fa-info-circle"></i> Details
+                            </a>
+                            <a asp-action="Delete" class="btn btn-outline-danger" asp-route-id="@item.Id">
+                                <i class="fas fa-trash-alt"></i> Delete
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
