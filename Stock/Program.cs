@@ -14,6 +14,7 @@ namespace Stock
 
             var connectionString = builder.Configuration.GetConnectionString("AppDbConnectionString");
             builder.Services.AddDbContext<AppDBContext>(options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+            builder.Services.AddSession();
 
             var app = builder.Build();
 
@@ -31,6 +32,7 @@ namespace Stock
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseSession();
 
             app.MapControllerRoute(
                 name: "default",
