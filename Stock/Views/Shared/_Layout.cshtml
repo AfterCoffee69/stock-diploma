@@ -3,71 +3,249 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Stock</title>
+    <title>@ViewData["Title"] - Stock Management</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Stock.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        :root {
+            --primary-color: #2e7d32;
+            --primary-hover: #1b5e20;
+            --secondary-color: #f8f9fa;
+            --text-color: #333;
+            --light-text: #6c757d;
+        }
+
+        body {
+            background-color: #f5faf5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar {
+            background-color: white !important;
+            padding: 0.8rem 1rem;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary-color) !important;
+            letter-spacing: 1px;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            margin: 0 0.2rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            color: var(--text-color) !important;
+        }
+
+            .nav-link:hover {
+                background-color: #e8f5e9;
+                color: var(--primary-color) !important;
+            }
+
+            .nav-link.active {
+                background-color: var(--primary-color);
+                color: white !important;
+            }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            font-weight: 500;
+            padding: 0.5rem 1.25rem;
+            transition: all 0.3s ease;
+        }
+
+            .btn-primary:hover {
+                background-color: var(--primary-hover);
+                border-color: var(--primary-hover);
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(46, 125, 50, 0.3);
+            }
+
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+            .btn-outline-primary:hover {
+                background-color: var(--primary-color);
+                color: white;
+            }
+
+        .action-buttons .btn {
+            margin: 0 0.3rem;
+        }
+
+        .navbar-actions {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .container {
+            width: 100%;
+            flex: 1;
+        }
+
+        footer {
+            background-color: white;
+            color: var(--light-text);
+            padding: 1.5rem 0;
+            margin-top: 2rem;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+        }
+
+        .table {
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+            .table thead {
+                background-color: var(--primary-color);
+                color: white;
+            }
+
+            .table th {
+                font-weight: 600;
+            }
+
+        .table-hover tbody tr:hover {
+            background-color: #e8f5e9;
+        }
+
+        .create-btn {
+            margin-bottom: 1.5rem;
+        }
+
+        h1, h2, h3, h4 {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        @@media (max-width: 992px) {
+            .navbar-collapse {
+                padding-top: 1rem;
+            }
+
+            .navbar-actions {
+                margin-top: 1rem;
+                justify-content: flex-start;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">STOCK</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <i class="fas fa-boxes me-2"></i>STOCK
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                <div class="navbar-collapse collapse">
+                    <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Index">Категории</a>
+                            <a class="nav-link" asp-controller="Categories" asp-action="Index">
+                                <i class="fas fa-tags me-1"></i>Категории
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Customers" asp-action="Index">Заказчики</a>
+                            <a class="nav-link" asp-controller="Customers" asp-action="Index">
+                                <i class="fas fa-users me-1"></i>Заказчики
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Deliveries" asp-action="Index">Доставки</a>
+                            <a class="nav-link" asp-controller="Deliveries" asp-action="Index">
+                                <i class="fas fa-truck me-1"></i>Доставки
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Employers" asp-action="Index">Работники</a>
+                            <a class="nav-link" asp-controller="Employers" asp-action="Index">
+                                <i class="fas fa-user-tie me-1"></i>Работники
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="Index">Заказы</a>
+                            <a class="nav-link" asp-controller="Orders" asp-action="Index">
+                                <i class="fas fa-shopping-cart me-1"></i>Заказы
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index">Товары</a>
+                            <a class="nav-link" asp-controller="Products" asp-action="Index">
+                                <i class="fas fa-box-open me-1"></i>Товары
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="StockModels" asp-action="Index">Склады</a>
+                            <a class="nav-link" asp-controller="StockModels" asp-action="Index">
+                                <i class="fas fa-warehouse me-1"></i>Склады
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Suppliers" asp-action="Index">Поставщики</a>
+                            <a class="nav-link" asp-controller="Suppliers" asp-action="Index">
+                                <i class="fas fa-truck-loading me-1"></i>Поставщики
+                            </a>
                         </li>
                     </ul>
 
-                    <div>
-                        <a class="btn btn-primary">Выйти</a>
-                        <a class="btn btn-primary">Сгенерировать отчёт</a>
+                    <div class="navbar-actions">
+                        <a class="btn btn-outline-primary">
+                            <i class="fas fa-file-export me-1"></i>Отчёт
+                        </a>
+                        <a class="btn btn-primary">
+                            <i class="fas fa-sign-out-alt me-1"></i>Выйти
+                        </a>
                     </div>
                 </div>
             </div>
         </nav>
     </header>
+
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main" class="pb-4">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container" style="text-align: center; color: #DCDCDC">
-            Моисеенко Р. А. АСОИР-211 | 2024 &copy;
+@*     <footer>
+        <div class="container text-center">
+            <span class="text-muted">
+                <i class="fas fa-user-graduate me-1"></i> Moiseenko R. | 2025 &copy;
+            </span>
         </div>
-    </footer>
+    </footer> *@
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+
+        $(document).ready(function() {
+            const current = location.pathname.split('/')[1];
+            if (current === "") return;
+
+            const menuItems = document.querySelectorAll('.nav-link');
+            menuItems.forEach(item => {
+                if (item.getAttribute('href').includes(current)) {
+                    item.classList.add('active');
+                }
+            });
+        });
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
