@@ -10,7 +10,7 @@ using Stock.Models;
 
 namespace Stock.Controllers
 {
-    public class CategoriesController : Controller
+    public class CategoriesController : BaseController 
     {
         private readonly AppDBContext _context;
 
