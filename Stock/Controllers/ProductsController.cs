@@ -201,9 +201,9 @@ namespace Stock.Controllers
             var titleStyle = new Style()
                 .SetFontSize(18)
                 .SetBold()
-                .SetFontColor(DeviceRgb.BLUE)
+                .SetFontColor(DeviceRgb.BLACK)
                 .SetTextAlignment(TextAlignment.CENTER)
-                .SetMarginBottom(20);
+                .SetMarginBottom(22);
 
             string reportTitle = stockId.HasValue
                 ? $"Отчет по товарам склада: {products.FirstOrDefault()?.Stock?.Name ?? "Неизвестный склад"}"
@@ -218,7 +218,7 @@ namespace Stock.Controllers
 
             // Стилизация заголовков таблицы
             var headerStyle = new Style()
-                .SetBackgroundColor(new DeviceRgb(70, 130, 180)) // SteelBlue
+                .SetBackgroundColor(new DeviceRgb(0, 102, 51)) // SteelBlue
                 .SetFontColor(DeviceRgb.WHITE)
                 .SetBold()
                 .SetPadding(5)
@@ -240,7 +240,7 @@ namespace Stock.Controllers
             {
                 table.AddCell(new Cell().Add(new Paragraph(product.Supplier?.Name ?? "Н/Д")).AddStyle(cellStyle));
                 table.AddCell(new Cell().Add(new Paragraph(product.Name)).AddStyle(cellStyle));
-                table.AddCell(new Cell().Add(new Paragraph(product.Price.ToString("N0") + " ₽")).AddStyle(cellStyle));
+                table.AddCell(new Cell().Add(new Paragraph(product.Price.ToString("N0") + " BYN")).AddStyle(cellStyle));
                 totalPrice += product.Price;
             }
 
@@ -257,7 +257,7 @@ namespace Stock.Controllers
             document.Add(new Paragraph($"Общее количество товаров: {products.Count}")
                 .AddStyle(totalStyle));
 
-            document.Add(new Paragraph($"Общая стоимость: {totalPrice:N0} ₽")
+            document.Add(new Paragraph($"Общая стоимость: {totalPrice:N0} BYN")
                 .AddStyle(totalStyle));
 
             // Добавляем дату генерации отчета
