@@ -98,6 +98,7 @@
         .container {
             width: 100%;
             flex: 1;
+            padding-top: 10px;
         }
 
         footer {
@@ -161,31 +162,6 @@
                 <div class="navbar-collapse collapse">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Categories" asp-action="Index">
-                                <i class="fas fa-tags me-1"></i>Категории
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Customers" asp-action="Index">
-                                <i class="fas fa-users me-1"></i>Заказчики
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Deliveries" asp-action="Index">
-                                <i class="fas fa-truck me-1"></i>Доставки
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Employers" asp-action="Index">
-                                <i class="fas fa-user-tie me-1"></i>Работники
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Orders" asp-action="Index">
-                                <i class="fas fa-shopping-cart me-1"></i>Заказы
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" asp-controller="Products" asp-action="Index">
                                 <i class="fas fa-box-open me-1"></i>Товары
                             </a>
@@ -200,13 +176,35 @@
                                 <i class="fas fa-truck-loading me-1"></i>Поставщики
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Customers" asp-action="Index">
+                                <i class="fas fa-users me-1"></i>Заказчики
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Orders" asp-action="Index">
+                                <i class="fas fa-shopping-cart me-1"></i>Заказы
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Deliveries" asp-action="Index">
+                                <i class="fas fa-truck me-1"></i>Доставки
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Categories" asp-action="Index">
+                                <i class="fas fa-tags me-1"></i>Категории
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Employers" asp-action="Index">
+                                <i class="fas fa-user-tie me-1"></i>Работники
+                            </a>
+                        </li>
                     </ul>
 
                     <div class="navbar-actions">
-                        <a class="btn btn-outline-primary">
-                            <i class="fas fa-file-export me-1"></i>Отчёт
-                        </a>
-                        <a class="btn btn-primary">
+                        <a class="btn btn-primary" asp-controller="Auth" asp-action="Logout">
                             <i class="fas fa-sign-out-alt me-1"></i>Выйти
                         </a>
                     </div>

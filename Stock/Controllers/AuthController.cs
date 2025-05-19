@@ -27,5 +27,11 @@ public class AuthController : Controller
         ViewBag.Error = "Неверный логин или пароль.";
         return View();
     }
+
+    public IActionResult Logout()
+    {
+        HttpContext.Session.Clear();
+        return RedirectToAction("Index", "Home");
+    }
 }
 
