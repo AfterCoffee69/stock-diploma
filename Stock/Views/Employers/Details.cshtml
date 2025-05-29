@@ -1,48 +1,207 @@
 ﻿@model Stock.Models.Employer
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Детали сотрудника";
 }
 
-<h1>Details</h1>
+<div class="employer-details-container">
+    <div class="employer-details-card shadow">
+        <div class="employer-details-header">
+            <h1><i class="fas fa-info-circle"></i> Информация о сотруднике</h1>
+            <p>Просмотр детальной информации о сотруднике</p>
+        </div>
 
-<div>
-    <h4>Employer</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Surename)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Surename)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Number)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Number)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateConnection)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DateConnection)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Stock)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Stock.Id)
-        </dd>
-    </dl>
+        <div class="employer-details-body">
+            <div class="details-list">
+                <div class="detail-item">
+                    <div class="detail-label">
+                        <i class="fas fa-signature"></i> Имя:
+                    </div>
+                    <div class="detail-value">
+                        @Html.DisplayFor(model => model.Name)
+                    </div>
+                </div>
+
+                <div class="detail-item">
+                    <div class="detail-label">
+                        <i class="fas fa-signature"></i> Фамилия:
+                    </div>
+                    <div class="detail-value">
+                        @Html.DisplayFor(model => model.Surename)
+                    </div>
+                </div>
+
+                <div class="detail-item">
+                    <div class="detail-label">
+                        <i class="fas fa-phone-alt"></i> Телефон:
+                    </div>
+                    <div class="detail-value">
+                        @Html.DisplayFor(model => model.Number)
+                    </div>
+                </div>
+
+                <div class="detail-item">
+                    <div class="detail-label">
+                        <i class="fas fa-calendar-alt"></i> Дата подключения:
+                    </div>
+                    <div class="detail-value">
+                        @Html.DisplayFor(model => model.DateConnection)
+                    </div>
+                </div>
+
+                <div class="detail-item">
+                    <div class="detail-label">
+                        <i class="fas fa-warehouse"></i> Склад:
+                    </div>
+                    <div class="detail-value">
+                        @Html.DisplayFor(model => model.Stock.Id)
+                    </div>
+                </div>
+            </div>
+
+            <div class="details-actions">
+                <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary btn-lg">
+                    <i class="fas fa-edit"></i> Редактировать
+                </a>
+                <a asp-action="Index" class="btn btn-outline-secondary btn-lg">
+                    <i class="fas fa-arrow-left"></i> Назад к списку
+                </a>
+            </div>
+        </div>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" class="btn btn-outline-warning" asp-route-id="@Model?.Id">Edit</a>
-    <a asp-action="Index" class="btn btn-outline-secondary mt-2">Back to List</a>
-</div>
+
+<style>
+    h1 {
+        color: white;
+    }
+
+    p {
+        color: white;
+    }
+
+    .employer-details-container {
+        display: flex;
+        justify-content: center;
+        padding: 2rem;
+    }
+
+    .employer-details-card {
+        background: white;
+        border-radius: 10px;
+        width: 100%;
+        max-width: 900px;
+        overflow: hidden;
+    }
+
+    .employer-details-header {
+        background: linear-gradient(135deg, #1976D2 0%, #0D47A1 100%);
+        color: white;
+        padding: 2rem;
+    }
+
+        .employer-details-header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+            .employer-details-header h1 i {
+                margin-right: 1rem;
+            }
+
+    .employer-details-body {
+        padding: 2rem;
+    }
+
+    .details-list {
+        margin-bottom: 2rem;
+    }
+
+    .detail-item {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #eee;
+    }
+
+    .detail-label {
+        font-weight: 500;
+        width: 200px;
+        display: flex;
+        align-items: center;
+        color: #1976D2;
+    }
+
+        .detail-label i {
+            margin-right: 0.7rem;
+            width: 1.2rem;
+        }
+
+    .detail-value {
+        flex: 1;
+        padding-left: 1rem;
+        word-break: break-word;
+    }
+
+    .details-actions {
+        display: flex;
+        gap: 1rem;
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #eee;
+    }
+
+    .btn-primary {
+        background-color: #1976D2;
+        border-color: #1976D2;
+        padding: 0.75rem 1.5rem;
+    }
+
+        .btn-primary:hover {
+            background-color: #0D47A1;
+            border-color: #0D47A1;
+        }
+
+    .btn-lg {
+        font-size: 1.1rem;
+    }
+
+    .btn i {
+        margin-right: 0.5rem;
+    }
+
+    @@media (max-width: 768px) {
+        .employer-details-container {
+            padding: 1rem;
+        }
+
+        .employer-details-header,
+        .employer-details-body {
+            padding: 1.5rem;
+        }
+
+        .detail-item {
+            flex-direction: column;
+        }
+
+        .detail-label {
+            width: 100%;
+            margin-bottom: 0.5rem;
+        }
+
+        .detail-value {
+            padding-left: 0;
+        }
+
+        .details-actions {
+            flex-direction: column;
+        }
+    }
+</style>
+
+@section Scripts {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+}

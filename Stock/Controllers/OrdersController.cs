@@ -48,11 +48,12 @@ namespace Stock.Controllers
 
         public IActionResult Create()
         {
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "Id");
-            ViewData["DeliveryId"] = new SelectList(_context.Delivery, "Id", "Id");
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id");
+            ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "Name");
+            ViewData["DeliveryId"] = new SelectList(_context.Delivery, "Id", "Status");
+            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name");
             return View();
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -60,9 +61,9 @@ namespace Stock.Controllers
         {
             _context.Add(order);
             await _context.SaveChangesAsync();
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "Id", order.CustomerId);
-            ViewData["DeliveryId"] = new SelectList(_context.Delivery, "Id", "Id", order.DeliveryId);
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id", order.ProductId);
+            ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "Name", order.CustomerId);
+            ViewData["DeliveryId"] = new SelectList(_context.Delivery, "Id", "Status", order.DeliveryId);
+            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name", order.ProductId);
             return View(order);
         }
 
@@ -78,9 +79,10 @@ namespace Stock.Controllers
             {
                 return NotFound();
             }
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "Id", order.CustomerId);
-            ViewData["DeliveryId"] = new SelectList(_context.Delivery, "Id", "Id", order.DeliveryId);
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id", order.ProductId);
+
+            ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "Name", order.CustomerId);
+            ViewData["DeliveryId"] = new SelectList(_context.Delivery, "Id", "Status", order.DeliveryId);
+            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name", order.ProductId);
             return View(order);
         }
 
@@ -109,9 +111,9 @@ namespace Stock.Controllers
                     throw;
                 }
             }
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "Id", order.CustomerId);
-            ViewData["DeliveryId"] = new SelectList(_context.Delivery, "Id", "Id", order.DeliveryId);
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id", order.ProductId);
+            ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "Name", order.CustomerId);
+            ViewData["DeliveryId"] = new SelectList(_context.Delivery, "Id", "Status", order.DeliveryId);
+            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name", order.ProductId);
             return View(order);
         }
 

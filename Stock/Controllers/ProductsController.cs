@@ -65,9 +65,9 @@ namespace Stock.Controllers
         }
         public IActionResult Create()
         {
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id");
-            ViewData["StockId"] = new SelectList(_context.Stocks, "Id", "Id");
-            ViewData["SupplierId"] = new SelectList(_context.Suppliers, "Id", "Id");
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name");
+            ViewData["StockId"] = new SelectList(_context.Stocks, "Id", "Name");
+            ViewData["SupplierId"] = new SelectList(_context.Suppliers, "Id", "Name");
             return View();
         }
 
@@ -77,9 +77,9 @@ namespace Stock.Controllers
         {
             _context.Add(product);
             await _context.SaveChangesAsync();
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id", product.CategoryId);
-            ViewData["StockId"] = new SelectList(_context.Stocks, "Id", "Id", product.StockId);
-            ViewData["SupplierId"] = new SelectList(_context.Suppliers, "Id", "Id", product.SupplierId);
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", product.CategoryId);
+            ViewData["StockId"] = new SelectList(_context.Stocks, "Id", "Name", product.StockId);
+            ViewData["SupplierId"] = new SelectList(_context.Suppliers, "Id", "Name", product.SupplierId);
             return View(product);
         }
 
@@ -95,9 +95,9 @@ namespace Stock.Controllers
             {
                 return NotFound();
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id", product.CategoryId);
-            ViewData["StockId"] = new SelectList(_context.Stocks, "Id", "Id", product.StockId);
-            ViewData["SupplierId"] = new SelectList(_context.Suppliers, "Id", "Id", product.SupplierId);
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", product.CategoryId);
+            ViewData["StockId"] = new SelectList(_context.Stocks, "Id", "Name", product.StockId);
+            ViewData["SupplierId"] = new SelectList(_context.Suppliers, "Id", "Name", product.SupplierId);
             return View(product);
         }
         [HttpPost]
@@ -124,9 +124,9 @@ namespace Stock.Controllers
                     throw;
                 }
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id", product.CategoryId);
-            ViewData["StockId"] = new SelectList(_context.Stocks, "Id", "Id", product.StockId);
-            ViewData["SupplierId"] = new SelectList(_context.Suppliers, "Id", "Id", product.SupplierId);
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", product.CategoryId);
+            ViewData["StockId"] = new SelectList(_context.Stocks, "Id", "Name", product.StockId);
+            ViewData["SupplierId"] = new SelectList(_context.Suppliers, "Id", "Name", product.SupplierId);
             return View(product);
         }
 

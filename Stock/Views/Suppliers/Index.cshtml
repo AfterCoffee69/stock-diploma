@@ -1,7 +1,11 @@
 ﻿@model IEnumerable<Stock.Models.Supplier>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Поставщики";
+}
+
+@section Scripts {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 }
 
 <style>
@@ -100,7 +104,6 @@
             box-shadow: 0 2px 8px rgba(46, 125, 50, 0.3);
         }
 
-
     .btn-outline-info {
         color: #0288d1;
         border-color: #0288d1;
@@ -135,12 +138,6 @@
         margin-bottom: 20px;
     }
 
-/*     .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px;
-    } */
-
     @@keyframes fadeIn {
         from {
             opacity: 0;
@@ -166,21 +163,26 @@
     }
 </style>
 
-<h1><i class="fas fa-truck-loading me-1"></i> Suppliers</h1>
+<h1><i class="fas fa-truck"></i> Поставщики</h1>
 
-<p>
-    <a asp-action="Create" class="btn btn-primary">Create New</a>
+<p class="create-btn">
+    <a asp-action="Create" class="btn btn-primary">
+        <i class="fas fa-plus-circle"></i> Создать запись
+    </a>
 </p>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                Название
+                <i class="fas fa-tag"></i> Название
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                <i class="fas fa-envelope"></i> Email
             </th>
-            <th></th>
+            <th>
+                <i class="fas fa-cogs"></i> Действия
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -193,10 +195,16 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Email)
                 </td>
-                <td>
-                    <a asp-action="Edit" class="btn btn-outline-primary" asp-route-id="@item.Id">Edit</a>
-                    <a asp-action="Details" class="btn btn-outline-info" asp-route-id="@item.Id">Details</a>
-                    <a asp-action="Delete" class="btn btn-outline-danger" asp-route-id="@item.Id">Delete</a>
+                <td class="action-buttons">
+                    <a asp-action="Edit" class="btn btn-outline-primary" asp-route-id="@item.Id">
+                        <i class="fas fa-edit"></i> Изменить
+                    </a>
+                    <a asp-action="Details" class="btn btn-outline-info" asp-route-id="@item.Id">
+                        <i class="fas fa-info-circle"></i> Детали
+                    </a>
+                    <a asp-action="Delete" class="btn btn-outline-danger" asp-route-id="@item.Id">
+                        <i class="fas fa-trash-alt"></i> Удалить
+                    </a>
                 </td>
             </tr>
         }

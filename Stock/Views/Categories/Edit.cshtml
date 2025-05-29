@@ -1,34 +1,178 @@
 ﻿@model Stock.Models.Category
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Редактировать категорию";
 }
 
-<h1>Edit</h1>
+<div class="category-edit-container">
+    <div class="category-edit-card shadow">
+        <div class="category-edit-header">
+            <h1><i class="fas fa-edit"></i> Редактировать категорию</h1>
+            <p>Измените данные и нажмите «Сохранить»</p>
+        </div>
 
-<h4>Category</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group mt-2">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        <div class="category-edit-body">
+            <form asp-action="Edit" class="category-form">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+                <input type="hidden" asp-for="Id" />
+
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label asp-for="Name" class="form-label">
+                            <i class="fas fa-tag"></i> Название категории
+                        </label>
+                        <input asp-for="Name" class="form-control" placeholder="Введите название категории" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="fas fa-save"></i> Сохранить
+                    </button>
+                    <a asp-action="Index" class="btn btn-outline-secondary btn-lg">
+                        <i class="fas fa-arrow-left"></i> Назад к списку
+                    </a>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index" class="btn btn-outline-secondary mt-2">Back to List</a>
-</div>
+<style>
+    h1 {
+        color: white;
+    }
+
+    p {
+        color: white;
+    }
+
+    .category-edit-container {
+        display: flex;
+        justify-content: center;
+        padding: 2rem;
+    }
+
+    .category-edit-card {
+        background: white;
+        border-radius: 10px;
+        width: 100%;
+        max-width: 900px;
+        overflow: hidden;
+    }
+
+    .category-edit-header {
+        background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
+        color: white;
+        padding: 2rem;
+    }
+
+        .category-edit-header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+            .category-edit-header h1 i {
+                margin-right: 1rem;
+            }
+
+    .category-edit-body {
+        padding: 2rem;
+    }
+
+    .category-form .form-label {
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+    }
+
+        .category-form .form-label i {
+            margin-right: 0.7rem;
+            color: #2e7d32;
+            width: 1.2rem;
+        }
+
+    .category-form .form-control {
+        padding: 0.75rem 1rem;
+        border-radius: 5px;
+        border: 1px solid #ced4da;
+        transition: border-color 0.3s;
+    }
+
+        .category-form .form-control:focus {
+            border-color: #2e7d32;
+            box-shadow: 0 0 0 0.2rem rgba(46, 125, 50, 0.25);
+        }
+
+    .form-row {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+        flex: 1;
+    }
+
+    .form-actions {
+        display: flex;
+        gap: 1rem;
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #eee;
+    }
+
+    .btn-primary {
+        background-color: #2e7d32;
+        border-color: #2e7d32;
+        padding: 0.75rem 1.5rem;
+    }
+
+        .btn-primary:hover {
+            background-color: #1b5e20;
+            border-color: #1b5e20;
+        }
+
+    .btn-lg {
+        font-size: 1.1rem;
+    }
+
+    .btn i {
+        margin-right: 0.5rem;
+    }
+
+    .alert-danger {
+        border-left: 4px solid #dc3545;
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .text-danger {
+        font-size: 0.9rem;
+        margin-top: 0.3rem;
+    }
+
+    @@media (max-width: 768px) {
+        .category-edit-container {
+            padding: 1rem;
+        }
+
+        .category-edit-header,
+        .category-edit-body {
+            padding: 1.5rem;
+        }
+
+        .form-actions {
+            flex-direction: column;
+        }
+    }
+</style>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 }

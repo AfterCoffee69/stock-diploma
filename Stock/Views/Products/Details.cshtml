@@ -1,54 +1,214 @@
 ﻿@model Stock.Models.Product
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Детали продукта";
 }
 
-<h1>Details</h1>
+<div class="product-details-container">
+    <div class="product-details-card shadow">
+        <div class="product-details-header">
+            <h1><i class="fas fa-info-circle"></i> Детали товара</h1>
+            <p>Полная информация о выбранном товаре</p>
+        </div>
 
-<div>
-    <h4>Product</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Stock)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Stock.Id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Supplier)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Supplier.Id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Category)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Category.Id)
-        </dd>
-    </dl>
+        <div class="product-details-body">
+            <div class="product-info">
+                <div class="info-row">
+                    <div class="info-label">
+                        <i class="fas fa-tag"></i> Название:
+                    </div>
+                    <div class="info-value">
+                        @Html.DisplayFor(model => model.Name)
+                    </div>
+                </div>
+
+                <div class="info-row">
+                    <div class="info-label">
+                        <i class="fas fa-align-left"></i> Описание:
+                    </div>
+                    <div class="info-value">
+                        @Html.DisplayFor(model => model.Description)
+                    </div>
+                </div>
+
+                <div class="info-row">
+                    <div class="info-label">
+                        <i class="fas fa-dollar-sign"></i> Цена:
+                    </div>
+                    <div class="info-value">
+                        @Html.DisplayFor(model => model.Price) BYN
+                    </div>
+                </div>
+
+                <div class="info-row">
+                    <div class="info-label">
+                        <i class="fas fa-warehouse"></i> Склад:
+                    </div>
+                    <div class="info-value">
+                        @Html.DisplayFor(model => model.Stock.Name)
+                    </div>
+                </div>
+
+                <div class="info-row">
+                    <div class="info-label">
+                        <i class="fas fa-truck"></i> Поставщик:
+                    </div>
+                    <div class="info-value">
+                        @Html.DisplayFor(model => model.Supplier.Name)
+                    </div>
+                </div>
+
+                <div class="info-row">
+                    <div class="info-label">
+                        <i class="fas fa-tags"></i> Категория:
+                    </div>
+                    <div class="info-value">
+                        @Html.DisplayFor(model => model.Category.Name)
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary btn-lg">
+                    <i class="fas fa-edit"></i> Редактировать
+                </a>
+                <a asp-action="Index" class="btn btn-outline-secondary btn-lg">
+                    <i class="fas fa-arrow-left"></i> Назад к списку
+                </a>
+            </div>
+        </div>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a>
-    <a asp-action="Index" class="btn btn-outline-secondary mt-2">Back to List</a>
-</div>
+
+    <style>
+        h1 {
+            color: white;
+        }
+
+        p {
+            color: white;
+        }
+
+        .product-details-container {
+            display: flex;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .product-details-card {
+            background: white;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 800px;
+            overflow: hidden;
+        }
+
+        .product-details-header {
+            background: linear-gradient(135deg, #1976d2 0%, #0d47a1 100%);
+            color: white;
+            padding: 2rem;
+        }
+
+            .product-details-header h1 {
+                font-size: 1.8rem;
+                margin-bottom: 0.5rem;
+                display: flex;
+                align-items: center;
+            }
+
+                .product-details-header h1 i {
+                    margin-right: 1rem;
+                }
+
+        .product-details-body {
+            padding: 2rem;
+        }
+
+        .product-info {
+            margin-bottom: 2rem;
+        }
+
+        .info-row {
+            display: flex;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+            .info-row:last-child {
+                border-bottom: none;
+            }
+
+        .info-label {
+            width: 200px;
+            font-weight: 500;
+            color: #616161;
+            display: flex;
+            align-items: center;
+        }
+
+            .info-label i {
+                margin-right: 0.7rem;
+                color: #1976d2;
+                width: 1.2rem;
+            }
+
+        .info-value {
+            flex: 1;
+            color: #212121;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #eee;
+        }
+
+        .btn-primary {
+            background-color: #1976d2;
+            border-color: #1976d2;
+            padding: 0.75rem 1.5rem;
+        }
+
+            .btn-primary:hover {
+                background-color: #0d47a1;
+                border-color: #0d47a1;
+            }
+
+        .btn-lg {
+            font-size: 1.1rem;
+        }
+
+        .btn i {
+            margin-right: 0.5rem;
+        }
+
+        @@media (max-width: 768px) {
+            .product-details-container {
+                padding: 1rem;
+            }
+
+            .product-details-header,
+            .product-details-body {
+                padding: 1.5rem;
+            }
+
+            .info-row {
+                flex-direction: column;
+            }
+
+            .info-label {
+                width: 100%;
+                margin-bottom: 0.3rem;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+
+@section Scripts {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+}

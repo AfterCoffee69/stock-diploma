@@ -206,12 +206,10 @@
             animation: fadeIn 0.5s ease-in-out;
         }
 
-            /* Иконки в заголовках */
             .table th i {
                 margin-right: 8px;
             }
 
-        /* Иконки в кнопках */
         .btn i {
             margin-right: 5px;
         }
@@ -219,63 +217,14 @@
 </head>
 <body>
 
-    <div class="filter-section">
-        <h3 class="filter-title"><i class="fas fa-filter"></i> Фильтры продуктов</h3>
-
-        <form method="get" asp-action="GetProductsByPrice" class="d-flex">
-            <input type="number" name="price" placeholder="Все продукты ценой больше:" class="form-control" required>
-            <button type="submit" class="btn btn-outline-danger ms-2">
-                <i class="fas fa-search-dollar"></i> Filter
-            </button>
-        </form>
-
-        <form method="get" asp-action="GetProductsByStockName" class="d-flex mt-2">
-            <input type="text" name="stockName" placeholder="Все единицы на складе № _" class="form-control" required>
-            <button type="submit" class="btn btn-outline-danger ms-2">
-                <i class="fas fa-warehouse"></i> Filter
-            </button>
-        </form>
-
-        <form method="get" asp-action="GetProductsByName" class="d-flex mt-2">
-            <input type="text" name="name" placeholder="Поиск единиц по имени" class="form-control" required>
-            <button type="submit" class="btn btn-outline-danger ms-2">
-                <i class="fas fa-search"></i> Search
-            </button>
-        </form>
-
-        <form method="get" asp-action="GetProductsByCategory" class="d-flex mt-2">
-            <select name="categoryId" class="form-control" required>
-                <option value="">Выберите категорию</option>
-                @foreach (var category in ViewBag.Categories)
-                {
-                    <option value="@category.Id">@category.Name</option>
-                }
-            </select>
-            <button type="submit" class="btn btn-outline-danger ms-2">
-                <i class="fas fa-tags"></i> Filter
-            </button>
-        </form>
-
-        <form method="get" asp-action="GetProductsBySupplier" class="d-flex mt-2">
-            <select name="supplierId" class="form-control" required>
-                <option value="">Выберите поставщика</option>
-                @foreach (var suppliers in ViewBag.Suppliers)
-                {
-                    <option value="@suppliers.Id">@suppliers.Name</option>
-                }
-            </select>
-            <button type="submit" class="btn btn-outline-danger ms-2">
-                <i class="fas fa-truck"></i> Filter
-            </button>
-        </form>
-    </div>
+    
 
     <div class="container">
-        <h1><i class="fas fa-warehouse"></i> Stocks</h1>
+        <h1><i class="fas fa-warehouse"></i> Склады</h1>
 
         <p class="create-btn">
             <a asp-action="Create" class="btn btn-outline-primary">
-                <i class="fas fa-plus-circle"></i> Create New
+                <i class="fas fa-plus-circle"></i> Создать запись
             </a>
         </p>
 
@@ -295,19 +244,70 @@
                         <td>@Html.DisplayFor(modelItem => item.Addres)</td>
                         <td class="action-buttons">
                             <a asp-action="Edit" class="btn btn-outline-primary" asp-route-id="@item.Id">
-                                <i class="fas fa-edit"></i> Edit
+                                <i class="fas fa-edit"></i> Изменить
                             </a>
                             <a asp-action="Details" class="btn btn-outline-info" asp-route-id="@item.Id">
-                                <i class="fas fa-info-circle"></i> Details
+                                <i class="fas fa-info-circle"></i> Детали
                             </a>
                             <a asp-action="Delete" class="btn btn-outline-danger" asp-route-id="@item.Id">
-                                <i class="fas fa-trash-alt"></i> Delete
+                                <i class="fas fa-trash-alt"></i> Удалить
                             </a>
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
+
+        <div class="filter-section">
+            <h3 class="filter-title"><i class="fas fa-filter"></i> Поиск товаров</h3>
+
+            <form method="get" asp-action="GetProductsByPrice" class="d-flex">
+                <input type="number" name="price" placeholder="Все продукты ценой больше:" class="form-control" required>
+                <button type="submit" class="btn btn-outline-danger ms-2">
+                    <i class="fas fa-search-dollar"></i> Найти
+                </button>
+            </form>
+
+            <form method="get" asp-action="GetProductsByStockName" class="d-flex mt-2">
+                <input type="text" name="stockName" placeholder="Все единицы на складе № _" class="form-control" required>
+                <button type="submit" class="btn btn-outline-danger ms-2">
+                    <i class="fas fa-warehouse"></i> Найти
+                </button>
+            </form>
+
+            <form method="get" asp-action="GetProductsByName" class="d-flex mt-2">
+                <input type="text" name="name" placeholder="Поиск единиц по имени" class="form-control" required>
+                <button type="submit" class="btn btn-outline-danger ms-2">
+                    <i class="fas fa-search"></i> Найти
+                </button>
+            </form>
+
+            <form method="get" asp-action="GetProductsByCategory" class="d-flex mt-2">
+                <select name="categoryId" class="form-control" required>
+                    <option value="">Выберите категорию</option>
+                    @foreach (var category in ViewBag.Categories)
+                    {
+                        <option value="@category.Id">@category.Name</option>
+                    }
+                </select>
+                <button type="submit" class="btn btn-outline-danger ms-2">
+                    <i class="fas fa-tags"></i> Найти
+                </button>
+            </form>
+
+            <form method="get" asp-action="GetProductsBySupplier" class="d-flex mt-2">
+                <select name="supplierId" class="form-control" required>
+                    <option value="">Выберите поставщика</option>
+                    @foreach (var suppliers in ViewBag.Suppliers)
+                    {
+                        <option value="@suppliers.Id">@suppliers.Name</option>
+                    }
+                </select>
+                <button type="submit" class="btn btn-outline-danger ms-2">
+                    <i class="fas fa-truck"></i> Найти
+                </button>
+            </form>
+        </div>
 
         @if (ViewBag.Products != null)
         {

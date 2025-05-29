@@ -1,43 +1,209 @@
 ﻿@model Stock.Models.Delivery
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Добавить способ доставки";
 }
 
-<h1>Create</h1>
+<div class="delivery-create-container">
+    <div class="delivery-create-card shadow">
+        <div class="delivery-create-header">
+            <h1><i class="fas fa-box-open"></i> Добавить новую доставку</h1>
+            <p>Заполните форму для добавления нового способа доставки</p>
+        </div>
 
-<h4>Delivery</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="OrderDate" class="control-label"></label>
-                <input asp-for="OrderDate" class="form-control" />
-                <span asp-validation-for="OrderDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DeliveryDate" class="control-label"></label>
-                <input asp-for="DeliveryDate" class="form-control" />
-                <span asp-validation-for="DeliveryDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Status" class="control-label"></label>
-                <input asp-for="Status" class="form-control" />
-                <span asp-validation-for="Status" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        <div class="delivery-create-body">
+            <form asp-action="Create" class="delivery-form">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label asp-for="OrderDate" class="form-label">
+                            <i class="fas fa-calendar-alt"></i> Дата заказа
+                        </label>
+                        <input asp-for="OrderDate" class="form-control" type="datetime-local" />
+                        <span asp-validation-for="OrderDate" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label asp-for="DeliveryDate" class="form-label">
+                            <i class="fas fa-calendar-check"></i> Дата доставки
+                        </label>
+                        <input asp-for="DeliveryDate" class="form-control" type="datetime-local" />
+                        <span asp-validation-for="DeliveryDate" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label asp-for="Status" class="form-label">
+                            <i class="fas fa-truck"></i> Статус доставки
+                        </label>
+                        <input asp-for="Status" class="form-control" placeholder="Введите статус доставки" />
+                        <span asp-validation-for="Status" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="fas fa-save"></i> Создать доставку
+                    </button>
+                    <a asp-action="Index" class="btn btn-outline-secondary btn-lg">
+                        <i class="fas fa-arrow-left"></i> Назад к списку
+                    </a>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index" class="btn btn-outline-secondary mt-2">Back to List</a>
-</div>
+<style>
+    h1 {
+        color: white;
+    }
+
+    p {
+        color: white;
+    }
+
+    .delivery-create-container {
+        display: flex;
+        justify-content: center;
+        padding: 2rem;
+    }
+
+    .delivery-create-card {
+        background: white;
+        border-radius: 10px;
+        width: 100%;
+        max-width: 900px;
+        overflow: hidden;
+    }
+
+    .delivery-create-header {
+        background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
+        color: white;
+        padding: 2rem;
+    }
+
+        .delivery-create-header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+            .delivery-create-header h1 i {
+                margin-right: 1rem;
+            }
+
+    .delivery-create-body {
+        padding: 2rem;
+    }
+
+    .delivery-form .form-label {
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+    }
+
+        .delivery-form .form-label i {
+            margin-right: 0.7rem;
+            color: #2e7d32;
+            width: 1.2rem;
+        }
+
+    .delivery-form .form-control {
+        padding: 0.75rem 1rem;
+        border-radius: 5px;
+        border: 1px solid #ced4da;
+        transition: border-color 0.3s;
+    }
+
+        .delivery-form .form-control:focus {
+            border-color: #2e7d32;
+            box-shadow: 0 0 0 0.2rem rgba(46, 125, 50, 0.25);
+        }
+
+    .form-row {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+        .form-row:last-child {
+            margin-bottom: 0;
+        }
+
+    .form-group {
+        flex: 1;
+    }
+
+    .form-actions {
+        display: flex;
+        gap: 1rem;
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #eee;
+    }
+
+    .btn-primary {
+        background-color: #2e7d32;
+        border-color: #2e7d32;
+        padding: 0.75rem 1.5rem;
+    }
+
+        .btn-primary:hover {
+            background-color: #1b5e20;
+            border-color: #1b5e20;
+        }
+
+    .btn-lg {
+        font-size: 1.1rem;
+    }
+
+    .btn i {
+        margin-right: 0.5rem;
+    }
+
+    .alert-danger {
+        border-left: 4px solid #dc3545;
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .text-danger {
+        font-size: 0.9rem;
+        margin-top: 0.3rem;
+    }
+
+    @@media (max-width: 768px) {
+        .delivery-create-container {
+            padding: 1rem;
+        }
+
+        .delivery-create-header,
+        .delivery-create-body {
+            padding: 1.5rem;
+        }
+
+        .form-row {
+            flex-direction: column;
+        }
+
+        .form-group {
+            width: 100%;
+        }
+
+        .form-actions {
+            flex-direction: column;
+        }
+    }
+</style>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 }

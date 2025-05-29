@@ -179,11 +179,11 @@
 </head>
 <body>
     <div class="container">
-        <h1><i class="fas fa-shopping-cart"></i> Orders</h1>
+        <h1><i class="fas fa-shopping-cart"></i> Заказы</h1>
 
         <p class="create-btn">
             <a asp-action="Create" class="btn btn-outline-primary">
-                <i class="fas fa-plus-circle"></i> Create New
+                <i class="fas fa-plus-circle"></i> Создать запись
             </a>
         </p>
 
@@ -211,13 +211,13 @@
                         <td>@Html.DisplayFor(modelItem => item.Customer.Name)</td>
                         <td class="action-buttons">
                             <a asp-action="Edit" class="btn btn-outline-primary" asp-route-id="@item.Id">
-                                <i class="fas fa-edit"></i> Edit
+                                <i class="fas fa-edit"></i> Изменить
                             </a>
                             <a asp-action="Details" class="btn btn-outline-info" asp-route-id="@item.Id">
-                                <i class="fas fa-info-circle"></i> Details
+                                <i class="fas fa-info-circle"></i> Детали
                             </a>
                             <a asp-action="Delete" class="btn btn-outline-danger" asp-route-id="@item.Id">
-                                <i class="fas fa-trash-alt"></i> Delete
+                                <i class="fas fa-trash-alt"></i> Удалить
                             </a>
                         </td>
                     </tr>

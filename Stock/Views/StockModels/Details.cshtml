@@ -4,27 +4,173 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<div class="stock-details-container">
+    <div class="stock-details-card shadow">
+        <div class="stock-details-header">
+            <h1><i class="fas fa-info-circle"></i> Информация о складе</h1>
+            <p>Просмотр детальной информации о складе</p>
+        </div>
 
-<div>
-    <h4>StockModel</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Addres)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Addres)
-        </dd>
-    </dl>
+        <div class="stock-details-body">
+            <div class="details-list">
+                <div class="detail-item">
+                    <div class="detail-label">
+                        <i class="fas fa-signature"></i> Название
+                    </div>
+                    <div class="detail-value">
+                        @Html.DisplayFor(model => model.Name)
+                    </div>
+                </div>
+
+                <div class="detail-item">
+                    <div class="detail-label">
+                        <i class="fas fa-map-marker-alt"></i> Адрес
+                    </div>
+                    <div class="detail-value">
+                        @Html.DisplayFor(model => model.Addres)
+                    </div>
+                </div>
+            </div>
+
+            <div class="details-actions">
+                <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary btn-lg">
+                    <i class="fas fa-edit"></i> Редактировать
+                </a>
+                <a asp-action="Index" class="btn btn-outline-secondary btn-lg">
+                    <i class="fas fa-arrow-left"></i> Назад к списку
+                </a>
+            </div>
+        </div>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+
+<style>
+    h1 {
+        color: white;
+    }
+
+    p {
+        color: white;
+    }
+
+    .stock-details-container {
+        display: flex;
+        justify-content: center;
+        padding: 2rem;
+    }
+
+    .stock-details-card {
+        background: white;
+        border-radius: 10px;
+        width: 100%;
+        max-width: 900px;
+        overflow: hidden;
+    }
+
+    .stock-details-header {
+        background: linear-gradient(135deg, #1976D2 0%, #0D47A1 100%);
+        color: white;
+        padding: 2rem;
+    }
+
+        .stock-details-header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+            .stock-details-header h1 i {
+                margin-right: 1rem;
+            }
+
+    .stock-details-body {
+        padding: 2rem;
+    }
+
+    .details-list {
+        margin-bottom: 2rem;
+    }
+
+    .detail-item {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #eee;
+    }
+
+    .detail-label {
+        font-weight: 500;
+        width: 200px;
+        display: flex;
+        align-items: center;
+        color: #1976D2;
+    }
+
+        .detail-label i {
+            margin-right: 0.7rem;
+            width: 1.2rem;
+        }
+
+    .detail-value {
+        flex: 1;
+        padding-left: 1rem;
+        word-break: break-word;
+    }
+
+    .details-actions {
+        display: flex;
+        gap: 1rem;
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #eee;
+    }
+
+    .btn-primary {
+        background-color: #1976D2;
+        border-color: #1976D2;
+        padding: 0.75rem 1.5rem;
+    }
+
+        .btn-primary:hover {
+            background-color: #0D47A1;
+            border-color: #0D47A1;
+        }
+
+    .btn-lg {
+        font-size: 1.1rem;
+    }
+
+    .btn i {
+        margin-right: 0.5rem;
+    }
+
+    @@media (max-width: 768px) {
+        .stock-details-container {
+            padding: 1rem;
+        }
+
+        .stock-details-header,
+        .stock-details-body {
+            padding: 1.5rem;
+        }
+
+        .detail-item {
+            flex-direction: column;
+        }
+
+        .detail-label {
+            width: 100%;
+            margin-bottom: 0.5rem;
+        }
+
+        .detail-value {
+            padding-left: 0;
+        }
+
+        .details-actions {
+            flex-direction: column;
+        }
+    }
+</style>
